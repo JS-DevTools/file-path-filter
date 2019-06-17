@@ -1,7 +1,7 @@
 /**
  * A function that filters files.
  */
-export type FilterFunction = (filePath: string, ...args: unknown[]) => unknown;
+export type FilterFunction<T = unknown> = (filePath: string, ...args: unknown[]) => T;
 
 /**
  * A single filter criterion.
