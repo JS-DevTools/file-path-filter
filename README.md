@@ -1,51 +1,122 @@
-Node.js TypeScript Template
-===========================
-This is a **template repo** for Node.js projects written in TypeScript. This template works for libraries and/or CLIs.
+# File Path Filter
+Filters file paths using globs, regular expressions, or custom criteria
+
+[![Cross-Platform Compatibility](https://jsdevtools.org/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/file-path-filter)
+[![Build Status](https://api.travis-ci.com/JS-DevTools/file-path-filter.svg?branch=master)](https://travis-ci.com/JS-DevTools/file-path-filter)
+
+[![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/file-path-filter/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/file-path-filter)
+[![Dependencies](https://david-dm.org/JS-DevTools/file-path-filter.svg)](https://david-dm.org/JS-DevTools/file-path-filter)
+
+[![npm](https://img.shields.io/npm/v/file-path-filter.svg)](https://www.npmjs.com/package/file-path-filter)
+[![License](https://img.shields.io/npm/l/file-path-filter.svg)](LICENSE)
 
 
 
-Step 1: Copy this repo
----------------------------------------------
-Create a new git repo and copy the contents of this repo into it.
+Example
+--------------------------
+
+```javascript
+const filePathFilter = require("file-path-filter");
+const paths = [
+  "/some/path/index.html",
+  "/some/path/contact.html",
+  "/some/path/about.html",
+  "/some/path/favicon.ico",
+  "/some/path/img/logo.png",
+];
+
+// Filter using a glob pattern
+paths.filter(filePathFilter("**/*.html"));
+
+// Exclude glob patterns with "!"
+paths.filter(filePathFilter("**/*.html", "!**/index.html"));
+
+// Filter using a regular expression
+paths.filter(filePathFilter(/\.(ico|png)$/));
+
+// Filter using custom criteria
+paths.filter(filePathFilter(path => path.length === 23));
+
+// Use any combination of filters
+paths.filter(filePathFilter([
+  "**/*.html",
+  "!**/index.html",
+  /\.(ico|png)$/,
+  path => path.length === 23
+]));
+
+// Explicitly specify include and exclude criteria
+paths.filter(filePathFilter({
+  include:  [
+    "**/*.html",
+    /\.(ico|png)$/,
+    path => path.length === 23
+  ],
+  exclude: "!**/index.html",
+));
+
+```
 
 
 
-Step 2: Delete unneeded files
----------------------------------------------
-If you **don't** need a CLI, then:
-  - Delete the following files and directories:
-    - `bin`
-    - `src/cli`
-    - `test/specs/cli.spec.js`
-    - `test/utils/project-cli-name.js`
-  - Delete the following fields in `package.json`:
-    - `bin`
-    - `files.bin`
-    - `devDependencies.chai-exec`
-    - `dependencies.command-line-args`
+Installation
+--------------------------
+You can install `file-path-filter` via [npm](https://docs.npmjs.com/about-npm/).
+
+```bash
+npm install -g file-path-filter
+```
 
 
 
-Step 3: Replace placeholders
----------------------------------------------
-Replace all occurrences of the following placeholders in all files:
+Usage
+--------------------------
 
-|Placeholder                        |Description
-|:----------------------------------|:------------------------------------------------------------
-|`project-package-name`             |This is the name of the NPM package. It should also match the GitHub repo name. It should be kebab-cased.
-|`project-cli-name`                 |The name of the CLI program for this project, if any.
-|`projectExportName`                |The name of the library's default export, if any.  This should be a valid JavaScript identifier name.
-|`Friendly Project Name`            |This is the human friendly name of the project that is used in the ReadMe, descriptions, and docs pages
-|`This is the project description`  |A short, human friendly description of the project that is used in the ReadMe and package.json
+### filePathFilter(criteria)
 
+- **`criteria`** - The filter criteria. This can be any of the following:
+  - A boolean. `true` will match all files. `false` will not match any files.
+  - A [glob pattern](https://en.wikipedia.org/wiki/Glob_(programming)). If the pattern starts with `!`, then it will be treated as an `exclude` pattern (see below)
+  - A [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+  - A [filter function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Syntax) that accepts a file path and returns `true` if the file should be matched
+  - An array containing any combination of the above types
+  - An object with `include` and `exclude` properties. Each of these properties can be any of the above types.  File paths will be matched if they match any of the `include` criteria and do not match any of the `exclude` criteria.
 
-
-Step 4: TODOs
----------------------------------------------
-Find all "TODO" notes in the code and follow their instructions.
+- **`return value`** - A [filter function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Syntax) that matches file paths that meet the specified criteria
 
 
 
-Step 5: ReadMe
----------------------------------------------
-Delete this file and replace it with `README_md`.
+Contributing
+--------------------------
+Contributions, enhancements, and bug-fixes are welcome!  [File an issue](https://github.com/JS-DevTools/file-path-filter/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/file-path-filter/pulls).
+
+#### Building
+To build the project locally on your computer:
+
+1. __Clone this repo__<br>
+`git clone https://github.com/JS-DevTools/file-path-filter.git`
+
+2. __Install dependencies__<br>
+`npm install`
+
+3. __Build the code__<br>
+`npm run build`
+
+4. __Run the tests__<br>
+`npm test`
+
+
+
+License
+--------------------------
+File Path Filter is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+
+
+
+Big Thanks To
+--------------------------
+Thanks to these awesome companies for their support of Open Source developers ❤
+
+[![Travis CI](https://jsdevtools.org/img/badges/travis-ci.svg)](https://travis-ci.com)
+[![SauceLabs](https://jsdevtools.org/img/badges/sauce-labs.svg)](https://saucelabs.com)
+[![Coveralls](https://jsdevtools.org/img/badges/coveralls.svg)](https://coveralls.io)

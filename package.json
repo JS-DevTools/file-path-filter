@@ -1,25 +1,31 @@
 {
-  "name": "project-package-name",
+  "name": "file-path-filter",
   "version": "1.0.0-alpha.0",
-  "description": "This is the project description",
-  "keywords": [],
+  "description": "Filters file paths using globs, regular expressions, or custom criteria",
+  "keywords": [
+    "filter",
+    "find",
+    "file",
+    "path",
+    "regex",
+    "regexp",
+    "glob",
+    "include",
+    "exclude"
+  ],
   "author": {
     "name": "James Messinger",
     "url": "https://jamesmessinger.com"
   },
   "license": "MIT",
-  "homepage": "https://jsdevtools.org/project-package-name",
+  "homepage": "https://jsdevtools.org/file-path-filter",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JS-DevTools/project-package-name.git"
+    "url": "https://github.com/JS-DevTools/file-path-filter.git"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.js",
-  "bin": {
-    "project-cli-name": "bin/project-cli-name.js"
-  },
   "files": [
-    "bin",
     "lib"
   ],
   "scripts": {
@@ -41,6 +47,7 @@
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/command-line-args": "^5.0.0",
+    "@types/glob-to-regexp": "^0.4.0",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.0.7",
     "chai": "^4.2.0",
@@ -58,6 +65,6 @@
     "typescript-tslint-plugin": "^0.5.0"
   },
   "dependencies": {
-    "command-line-args": "^5.1.1"
+    "glob-to-regexp": "^0.4.1"
   }
 }

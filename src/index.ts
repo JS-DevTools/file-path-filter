@@ -1,12 +1,11 @@
-import { projectExportName } from "./project-package-name";
+import { filePathFilter } from "./file-path-filter";
 
-// Export `projectExportName` as a named export and the default export
+export * from "./types";
+export { filePathFilter };
+
+// Export `filePathFilter` as a named export and the default export
 // tslint:disable: no-default-export
-export default projectExportName;
-export { projectExportName };
-
-// Other exports
-export { Options } from "./settings";
+export default filePathFilter;
 
 // CommonJS default export hack
 if (typeof module === "object" && typeof module.exports === "object") {
