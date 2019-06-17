@@ -52,7 +52,7 @@ paths.filter(filePathFilter({
     /\.(ico|png)$/,
     path => path.length === 23
   ],
-  exclude: "!**/index.html",
+  exclude: "**/index.html",
 ));
 
 ```
