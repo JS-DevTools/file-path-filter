@@ -1,5 +1,5 @@
 import { normalize } from "./normalize";
-import { AnyFilter, FilterCriteria, FilterCriterion, FilterFunction, Filters } from "./types";
+import { AnyFilter, FilterCriterion, FilterFunction, Filters } from "./types";
 
 /**
  * Creates a `FilterFunction` that matches file paths based on the specified criteria.
@@ -7,7 +7,7 @@ import { AnyFilter, FilterCriteria, FilterCriterion, FilterFunction, Filters } f
  * @param criteria - One or more glob patterns, regular expressions, or filter functions
  * @returns A `FilterFunction` that matches file paths based on the specified criteria
  */
-export function filePathFilter(criteria: FilterCriteria): FilterFunction;
+export function filePathFilter(criteria: AnyFilter): FilterFunction;
 
 /**
  * Creates a `FilterFunction` that matches file paths based on the specified criteria.
