@@ -1,12 +1,14 @@
+// tslint:disable: no-any
+
 /**
  * A function that filters files.
  */
-export type FilterFunction<T = unknown> = (filePath: string, ...args: unknown[]) => T;
+export type FilterFunction<T = boolean> = (filePath: string, ...args: unknown[]) => T;
 
 /**
  * A single filter criterion.
  */
-export type FilterCriterion = boolean | string | RegExp | FilterFunction;
+export type FilterCriterion = boolean | string | RegExp | FilterFunction<any>;
 
 /**
  * One or more filter criteria.

@@ -70,8 +70,9 @@ function normalizeCriterion(criterion: FilterCriterion, filter?: Filter): [Filte
     filterFunction = criterion as FilterFunction;
   }
   else if (type === "boolean") {
+    let bool = criterion as boolean;
     filterFunction = function booleanFilter() {
-      return criterion;
+      return bool;
     };
   }
   else if (type === "string") {

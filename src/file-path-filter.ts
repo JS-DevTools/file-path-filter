@@ -7,7 +7,7 @@ import { AnyFilter, FilterCriterion, FilterFunction, Filters } from "./types";
  * @param criteria - One or more glob patterns, regular expressions, or filter functions
  * @returns A `FilterFunction` that matches file paths based on the specified criteria
  */
-export function filePathFilter(criteria: AnyFilter): FilterFunction<boolean>;
+export function filePathFilter(criteria: AnyFilter): FilterFunction;
 
 /**
  * Creates a `FilterFunction` that matches file paths based on the specified criteria.
@@ -15,7 +15,7 @@ export function filePathFilter(criteria: AnyFilter): FilterFunction<boolean>;
  * @param criteria - One or more glob patterns, regular expressions, or filter functions
  * @returns A `FilterFunction` that matches file paths based on the specified criteria
  */
-export function filePathFilter(...criteria: FilterCriterion[]): FilterFunction<boolean>;
+export function filePathFilter(...criteria: FilterCriterion[]): FilterFunction;
 
 /**
  * Creates a `FilterFunction` that matches file paths based on the specified criteria.
@@ -23,9 +23,9 @@ export function filePathFilter(...criteria: FilterCriterion[]): FilterFunction<b
  * @param filters - An object with `include` and `exclude` filter criteria
  * @returns A `FilterFunction` that matches file paths based on the specified criteria
  */
-export function filePathFilter(filters: Filters): FilterFunction<boolean>;
+export function filePathFilter(filters: Filters): FilterFunction;
 
-export function filePathFilter(...args: unknown[]): FilterFunction<boolean> {
+export function filePathFilter(...args: unknown[]): FilterFunction {
   let filters = args.length <= 1 ? normalize(args[0] as AnyFilter) : normalize(args as FilterCriterion[]);
 
   return function pathFilter(filePath: string, ...other: unknown[]): boolean {
