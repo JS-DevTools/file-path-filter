@@ -1,6 +1,6 @@
 {
   "name": "file-path-filter",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Filters file paths using globs, regular expressions, or custom criteria",
   "keywords": [
     "filter",
