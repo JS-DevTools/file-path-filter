@@ -64,7 +64,7 @@ Installation
 You can install `file-path-filter` via [npm](https://docs.npmjs.com/about-npm/).
 
 ```bash
-npm install -g file-path-filter
+npm install file-path-filter
 ```
 
 
