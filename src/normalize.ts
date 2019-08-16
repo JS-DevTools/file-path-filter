@@ -1,6 +1,5 @@
-// tslint:disable-next-line: no-require-imports
-import GlobToRegExp = require("glob-to-regexp");
-import { AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, isFilterCriterion, isPathFilter, _filters } from "./types";
+import * as GlobToRegExp from "glob-to-regexp";
+import { _filters, AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, isFilterCriterion, isPathFilter } from "./types";
 
 const isWindows = process.platform === "win32";
 
