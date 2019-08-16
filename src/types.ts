@@ -31,4 +31,4 @@ export interface Filters<T = FilterCriteria> {
 /**
  * Filter criteria, or an object containing filter criteria.
  */
-export type AnyFilter = FilterCriteria | Filters;
+export type AnyFilter = FilterCriteria | Partial<Filters>;

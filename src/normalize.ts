@@ -41,10 +41,10 @@ function normalizeCriteria(criteria: AnyFilter, filter?: Filter): Array<[Filter,
     tuples.push(normalizeCriterion(criteria, filter));
   }
   else if (criteria && typeof criteria === "object" && !filter) {
-    if ("include" in criteria) {
+    if (criteria.include !== undefined) {
       tuples.push(...normalizeCriteria(criteria.include, "include"));
     }
-    if ("exclude" in criteria) {
+    if (criteria.exclude !== undefined) {
       tuples.push(...normalizeCriteria(criteria.exclude, "exclude"));
     }
   }
