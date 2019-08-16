@@ -1,7 +1,6 @@
 // tslint:disable-next-line: no-require-imports
 import GlobToRegExp = require("glob-to-regexp");
-import { isFilterCriterion } from "./type-guards";
-import { AnyFilter, Filter, FilterCriterion, FilterFunction, Filters } from "./types";
+import { AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, isFilterCriterion, isPathFilter, _filters } from "./types";
 
 const isWindows = process.platform === "win32";
 
@@ -30,11 +29,19 @@ export function normalize(criteria: AnyFilter): Filters<FilterFunction[]> {
  * Creates a `FilterFunction` for each given criterion.
  */
 function normalizeCriteria(criteria: AnyFilter, filter?: Filter): Array<[Filter, FilterFunction]> {
-  let tuples = [];
+  let tuples: Array<[Filter, FilterFunction]> = [];
 
   if (Array.isArray(criteria)) {
     for (let criterion of criteria) {
-      tuples.push(normalizeCriterion(criterion, filter));
+      tuples.push(...normalizeCriteria(criterion, filter));
+    }
+  }
+  else if (isPathFilter(criteria)) {
+    for (let filterFunction of criteria[_filters].include) {
+      tuples.push(["include", filterFunction]);
+    }
+    for (let filterFunction of criteria[_filters].exclude) {
+      tuples.push(["exclude", filterFunction]);
     }
   }
   else if (isFilterCriterion(criteria)) {

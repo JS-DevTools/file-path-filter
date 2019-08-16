@@ -1,5 +1,6 @@
 import { normalize } from "./normalize";
-import { AnyFilter, FilterCriterion, FilterFunction, Filters } from "./types";
+import { AnyFilter, FilterCriterion, FilterFunction, Filters, PathFilter, _filters } from "./types";
+
 
 /**
  * Creates a `FilterFunction` that matches file paths based on the specified criteria.
@@ -27,8 +28,10 @@ export function filePathFilter(filters: Filters): FilterFunction;
 
 export function filePathFilter(...args: unknown[]): FilterFunction {
   let filters = args.length <= 1 ? normalize(args[0] as AnyFilter) : normalize(args as FilterCriterion[]);
+  (pathFilter as PathFilter)[_filters] = filters;
+  return pathFilter;
 
-  return function pathFilter(filePath: string, ...other: unknown[]): boolean {
+  function pathFilter(filePath: string, ...other: unknown[]): boolean {
     // Does the file path match any of the exclude filters?
     let exclude = filters.exclude.some((filter) => filter(filePath, ...other));
     if (exclude) {
@@ -43,5 +46,5 @@ export function filePathFilter(...args: unknown[]): FilterFunction {
     // Does the file path match any of the include filters?
     let include = filters.include.some((filter) => filter(filePath, ...other));
     return include;
-  };
+  }
 }

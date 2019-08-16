@@ -1,6 +1,6 @@
 import { filePathFilter } from "./file-path-filter";
 
-export * from "./types";
+export { AnyFilter, FilterCriteria, FilterCriterion, FilterFunction, Filters } from "./types";
 export { filePathFilter };
 
 // Export `filePathFilter` as a named export and the default export
