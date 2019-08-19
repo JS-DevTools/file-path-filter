@@ -41,6 +41,14 @@ export interface Options {
    * Defaults to a function that returns the first argument as a string.
    */
   getPath?: PathGetter;
+
+  /**
+   * The path separator. This allows you to filter paths from
+   * other operating systems (e.g. filtering Windows paths on a Mac).
+   *
+   * Defaults to the default path separtor for the host OS.
+   */
+  sep?: string;
 }
 
 /**

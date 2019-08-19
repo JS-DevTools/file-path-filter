@@ -1,8 +1,7 @@
 import * as GlobToRegExp from "glob-to-regexp";
+import * as path from "path";
 import { AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, Options } from "./types";
 import { _filters, isFilterCriterion, isPathFilter } from "./util";
-
-const isWindows = process.platform === "win32";
 
 /**
  * Normalizes the user-provided filter criteria. The normalized form is a `Filters` object
@@ -35,6 +34,7 @@ type NormalizedOptions = Required<Options>;
 function normalizeOptions(options: Options): NormalizedOptions {
   return {
     getPath: options.getPath || String,
+    sep: options.sep || path.sep,
   };
 }
 
@@ -131,14 +131,14 @@ criterion: FilterCriterion, options: NormalizedOptions, filter?: Filter): [Filte
  * Creates a `FilterFunction` for filtering based on glob patterns
  */
 function createGlobFilter(pattern: RegExp, options: NormalizedOptions, invert: boolean): FilterFunction {
-  let { getPath } = options;
+  let { getPath, sep } = options;
 
   return function globFilter(...args: unknown[]) {
     let filePath = getPath(...args);
 
-    if (isWindows) {
-      // Glob patterns only use forward slashes, even on Windows
-      filePath = filePath.replace(/\\/g, "/");
+    if (sep !== "/") {
+      // Glob patterns always expect forward slashes, even on Windows
+      filePath = filePath.replace(new RegExp("\\" + sep, "g"), "/");
     }
 
     let match = pattern.test(filePath);
