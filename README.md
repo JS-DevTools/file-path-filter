@@ -88,15 +88,17 @@ Usage
 
 ### createFilter(options, criteria)
 
-- **`options`** - An object with the following properties:
+- **`options`** - An object with some or all of the following properties:
   - `getPath` - A function that returns the file path from the given arguments
+  - `sep` - A custom path separator, such as `\` or `/`
 
 - **`criteria`** - The filter criteria. See the [`filePathFilter`](#filepathfiltercriteria) for details.
 
 - **`return value`** - A [filter function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Syntax) that matches file paths that meet the specified criteria
 
-The `createFilter` function is an alternative to the `filePathFilter` function that allows you to customize the behavior to suit your needs. Currently the only customization option is `getPath`, but other options may be added in the future.
+The `createFilter` function is an alternative to the `filePathFilter` function that allows you to customize the behavior to suit your needs.
 
+#### Filtering objects
 The `filePathFilter` function creates a function that filters arrays of strings, but what if you need to filter an array of objects instead?  That's where the `getPath` option comes in handy. You can use it to tell File Path Filter where to find the file paths on your objects.  Here's an example:
 
 ```javascript
