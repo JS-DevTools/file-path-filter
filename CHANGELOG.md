@@ -4,7 +4,7 @@ All notable changes will be documented in this file. `file-path-filter` adheres 
 
 
 [v2.2.0](https://github.com/JS-DevTools/file-path-filter/tree/v2.2.0) (2019-08-19)
----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 
 - Added a new `sep` option, which lets you override the default path separator. This is useful when filtering a list of paths from a different operating system.
 
@@ -13,7 +13,7 @@ All notable changes will be documented in this file. `file-path-filter` adheres 
 
 
 [v2.1.0](https://github.com/JS-DevTools/file-path-filter/tree/v2.1.0) (2019-08-19)
----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 
 - In addition to the default `filePathFilter()` function, there is now a `createFilter()` named export that allows you to pass an options object to customize the filter behavior. For example, you can use `createFilter()` to filter arrays of custom types, rather than just string arrays. See [the documentation](README.md#createfilteroptions-criteria) for details
 
@@ -22,7 +22,7 @@ All notable changes will be documented in this file. `file-path-filter` adheres 
 
 
 [v2.0.0](https://github.com/JS-DevTools/file-path-filter/tree/v2.0.0) (2019-08-16)
----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------
 
 - You can now append additional inclusion/exclusion criteria to an existing filter function. Just pass the new criteria and the existing filter function to `filePathFilter()`.
 
