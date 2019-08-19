@@ -33,7 +33,8 @@ type NormalizedOptions = Required<Options>;
  */
 function normalizeOptions(options: Options): NormalizedOptions {
   return {
-    // tslint:disable-next-line: no-any no-unsafe-any
+    // TODO: Remove the "getPath" fallback in the next minor release
+    // tslint:disable-next-line: no-unsafe-any no-any
     map: options.map || (options as any).getPath || String,
     sep: options.sep || path.sep,
   };
