@@ -36,11 +36,12 @@ export type AnyFilter = FilterCriteria | Partial<Filters>;
  */
 export interface Options {
   /**
-   * A function taht returns the file path from the given arguments.
+   * A function that maps each filtered item to a file path.  This allows you to filter things
+   * other than strings.
    *
    * Defaults to a function that returns the first argument as a string.
    */
-  getPath?: PathGetter;
+  map?: MapFunction;
 
   /**
    * The path separator. This allows you to filter paths from
@@ -54,4 +55,4 @@ export interface Options {
 /**
  * A function that returns the file path from the given arguments
  */
-export type PathGetter = (...args: unknown[]) => string;
+export type MapFunction = (...args: unknown[]) => string;

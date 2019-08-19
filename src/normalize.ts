@@ -33,7 +33,8 @@ type NormalizedOptions = Required<Options>;
  */
 function normalizeOptions(options: Options): NormalizedOptions {
   return {
-    getPath: options.getPath || String,
+    // tslint:disable-next-line: no-any no-unsafe-any
+    map: options.map || (options as any).getPath || String,
     sep: options.sep || path.sep,
   };
 }
@@ -113,10 +114,10 @@ criterion: FilterCriterion, options: NormalizedOptions, filter?: Filter): [Filte
   }
   else if (criterion instanceof RegExp) {
     let pattern = criterion;
-    let { getPath } = options;
+    let { map } = options;
 
     filterFunction = function regExpFilter(...args: unknown[]) {
-      let filePath = getPath(...args);
+      let filePath = map(...args);
       return pattern.test(filePath);
     };
   }
@@ -131,10 +132,10 @@ criterion: FilterCriterion, options: NormalizedOptions, filter?: Filter): [Filte
  * Creates a `FilterFunction` for filtering based on glob patterns
  */
 function createGlobFilter(pattern: RegExp, options: NormalizedOptions, invert: boolean): FilterFunction {
-  let { getPath, sep } = options;
+  let { map, sep } = options;
 
   return function globFilter(...args: unknown[]) {
-    let filePath = getPath(...args);
+    let filePath = map(...args);
 
     if (sep !== "/") {
       // Glob patterns always expect forward slashes, even on Windows

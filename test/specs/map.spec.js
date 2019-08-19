@@ -4,16 +4,16 @@ const { createFilter } = require("../../lib");
 const paths = require("../fixtures/paths");
 const { expect } = require("chai");
 
-describe("options.getPath", () => {
+describe("options.map", () => {
 
   it("should filter custom file objects by a single glob pattern", () => {
     let files = paths.map((path) => ({ path }));
 
-    function getPath (file) {
+    function map (file) {
       return file.path;
     }
 
-    let filter = createFilter({ getPath }, "**/*.html");
+    let filter = createFilter({ map }, "**/*.html");
     let result = files.filter(filter);
 
     expect(result).to.deep.equal([
@@ -28,13 +28,13 @@ describe("options.getPath", () => {
 
   it("should filter custom file objects by multiple globs", () => {
     let files = paths.map((path) => ({ deep: { path }}));
-    let filter = createFilter({ getPath },
+    let filter = createFilter({ map },
       "**/*.txt",
       "**/*.png",
     );
     let result = files.filter(filter);
 
-    function getPath (file) {
+    function map (file) {
       return file.deep.path;
     }
 
@@ -48,11 +48,11 @@ describe("options.getPath", () => {
   it("should filter custom file objects with separate include/exclude criteria", () => {
     let files = paths.map((path) => ({ path }));
 
-    function getPath (file) {
+    function map (file) {
       return file.path;
     }
 
-    let filter = createFilter({ getPath },
+    let filter = createFilter({ map },
       {
         include: [
           /\.html$/,
@@ -76,18 +76,18 @@ describe("options.getPath", () => {
     ]);
   });
 
-  it("should filter pass all arguments to the getPath() function", () => {
+  it("should filter pass all arguments to the map() function", () => {
     let files = paths.map((path) => ({ path }));
     let random = Math.random();
     let now = new Date();
 
-    function getPath (num, date, file) {
+    function map (num, date, file) {
       expect(num).to.equal(random);
       expect(date.toISOString()).to.equal(now.toISOString());
       return file.path;
     }
 
-    let filter = createFilter({ getPath }, "**/*.html", "!**/blog/**");
+    let filter = createFilter({ map }, "**/*.html", "!**/blog/**");
     let result = files.filter((file) => filter(random, now, file));
 
     expect(result).to.deep.equal([
@@ -102,11 +102,11 @@ describe("options.getPath", () => {
     let random = Math.random();
     let now = new Date();
 
-    function getPath (file) {
+    function map (file) {
       return file.path;
     }
 
-    let filter = createFilter({ getPath },
+    let filter = createFilter({ map },
       {
         include (num, date, file) {
           expect(num).to.equal(random);

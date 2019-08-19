@@ -89,7 +89,7 @@ Usage
 ### createFilter(options, criteria)
 
 - **`options`** - An object with some or all of the following properties:
-  - `getPath` - A function that returns the file path from the given arguments
+  - `map` - A function that maps filtered items to file paths
   - `sep` - A custom path separator, such as `\` or `/`
 
 - **`criteria`** - The filter criteria. See the [`filePathFilter`](#filepathfiltercriteria) for details.
@@ -99,7 +99,7 @@ Usage
 The `createFilter` function is an alternative to the `filePathFilter` function that allows you to customize the behavior to suit your needs.
 
 #### Filtering objects
-The `filePathFilter` function creates a function that filters arrays of strings, but what if you need to filter an array of objects instead?  That's where the `getPath` option comes in handy. You can use it to tell File Path Filter where to find the file paths on your objects.  Here's an example:
+The `filePathFilter` function creates a function that filters arrays of strings, but what if you need to filter an array of objects instead?  That's where the `map` option comes in handy. You can use it to map objects (or any other value) to file paths.  Here's an example:
 
 ```javascript
 const { createFilter } = require("file-path-filter");
@@ -112,13 +112,13 @@ const files = [
   { dir: "/my/website/blog", filename: "post-2.html" },
 ];
 
-// A function to returns the full path of each file
-function getPath(file) {
+// A function to returns the path of each file
+function map(file) {
   return path.join(file.dir, file.filename);
 }
 
 // Filter the file objects - return all HTML files except the blog posts
-files.filter(createFilter({ getPath }, "**/*.html", "!**/blog/*.html"));
+files.filter(createFilter({ map }, "**/*.html", "!**/blog/*.html"));
 ```
 
 
