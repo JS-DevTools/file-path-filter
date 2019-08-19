@@ -1,7 +1,7 @@
 "use strict";
 
 const commonJSExport = require("../../");
-const { default: defaultExport, filePathFilter: namedExport } = require("../../");
+const { default: defaultExport, filePathFilter: namedExport, createFilter } = require("../../");
 const { expect } = require("chai");
 
 describe("file-path-filter package exports", () => {
@@ -21,9 +21,15 @@ describe("file-path-filter package exports", () => {
     expect(namedExport).to.equal(commonJSExport);
   });
 
+  it("should export the createFilter() function as a named export", () => {
+    expect(createFilter).to.be.a("function");
+    expect(createFilter.name).to.equal("createFilter");
+  });
+
   it("should not export anything else", () => {
     expect(Object.keys(commonJSExport)).to.have.same.members([
       "default",
+      "createFilter",
       "filePathFilter",
     ]);
   });
