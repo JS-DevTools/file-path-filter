@@ -17,6 +17,7 @@ Example
 
 ```javascript
 const filePathFilter = require("file-path-filter");
+
 const paths = [
   "/some/path/index.html",
   "/some/path/contact.html",
@@ -84,6 +85,39 @@ Usage
 
 - **`return value`** - A [filter function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Syntax) that matches file paths that meet the specified criteria
 
+
+### createFilter(options, criteria)
+
+- **`options`** - An object with the following properties:
+  - `getPath` - A function that returns the file path from the given arguments
+
+- **`criteria`** - The filter criteria. See the [`filePathFilter`](#filepathfiltercriteria) for details.
+
+- **`return value`** - A [filter function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter#Syntax) that matches file paths that meet the specified criteria
+
+The `createFilter` function is an alternative to the `filePathFilter` function that allows you to customize the behavior to suit your needs. Currently the only customization option is `getPath`, but other options may be added in the future.
+
+The `filePathFilter` function creates a function that filters arrays of strings, but what if you need to filter an array of objects instead?  That's where the `getPath` option comes in handy. You can use it to tell File Path Filter where to find the file paths on your objects.  Here's an example:
+
+```javascript
+const { createFilter } = require("file-path-filter");
+const path = require("path");
+
+const files = [
+  { dir: "/my/website", filename: "index.html" },
+  { dir: "/my/website", filename: "contact.html" },
+  { dir: "/my/website/blog", filename: "post-1.html" },
+  { dir: "/my/website/blog", filename: "post-2.html" },
+];
+
+// A function to returns the full path of each file
+function getPath(file) {
+  return path.join(file.dir, file.filename);
+}
+
+// Filter the file objects - return all HTML files except the blog posts
+files.filter(createFilter({ getPath }, "**/*.html", "!**/blog/*.html"));
+```
 
 
 Contributing
