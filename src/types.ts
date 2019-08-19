@@ -1,9 +1,7 @@
-// tslint:disable: no-any
-
 /**
  * A function that filters files.
  */
-export type FilterFunction = (filePath: string, ...args: unknown[]) => unknown;
+export type FilterFunction = (...args: unknown[]) => unknown;
 
 /**
  * A single filter criterion.
@@ -34,8 +32,18 @@ export interface Filters<T = FilterCriteria> {
 export type AnyFilter = FilterCriteria | Partial<Filters>;
 
 /**
+ * Options for creating a custom file filter
  */
+export interface Options {
+  /**
+   * A function taht returns the file path from the given arguments.
+   *
+   * Defaults to a function that returns the first argument as a string.
+   */
+  getPath?: PathGetter;
 }
 
 /**
+ * A function that returns the file path from the given arguments
  */
+export type PathGetter = (...args: unknown[]) => string;

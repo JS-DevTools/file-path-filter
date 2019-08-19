@@ -8,14 +8,16 @@ const isWindows = process.platform === "win32";
  * Normalizes the user-provided filter criteria. The normalized form is a `Filters` object
  * whose `include` and `exclude` properties are both `FilterFunction` arrays.
  */
-export function normalize(criteria: AnyFilter): Filters<FilterFunction[]> {
+export function normalize(criteria: AnyFilter, opts: Options): Filters<FilterFunction[]> {
   let filters: Filters<FilterFunction[]> = {
     include: [],
     exclude: [],
   };
 
+  let options = normalizeOptions(opts);
+
   // Convert each criterion to a FilterFunction
-  let tuples = normalizeCriteria(criteria);
+  let tuples = normalizeCriteria(criteria, options);
 
   // Populate the `include` and `exclude` arrays
   for (let [filter, filterFunction] of tuples) {
@@ -25,15 +27,27 @@ export function normalize(criteria: AnyFilter): Filters<FilterFunction[]> {
   return filters;
 }
 
+type NormalizedOptions = Required<Options>;
+
+/**
+ * Fills-in defaults for any options that weren't specified by the caller.
+ */
+function normalizeOptions(options: Options): NormalizedOptions {
+  return {
+    getPath: options.getPath || String,
+  };
+}
+
 /**
  * Creates a `FilterFunction` for each given criterion.
  */
-function normalizeCriteria(criteria: AnyFilter, filter?: Filter): Array<[Filter, FilterFunction]> {
+function normalizeCriteria(
+criteria: AnyFilter, options: NormalizedOptions, filter?: Filter): Array<[Filter, FilterFunction]> {
   let tuples: Array<[Filter, FilterFunction]> = [];
 
   if (Array.isArray(criteria)) {
     for (let criterion of criteria) {
-      tuples.push(...normalizeCriteria(criterion, filter));
+      tuples.push(...normalizeCriteria(criterion, options, filter));
     }
   }
   else if (isPathFilter(criteria)) {
@@ -45,14 +59,14 @@ function normalizeCriteria(criteria: AnyFilter, filter?: Filter): Array<[Filter,
     }
   }
   else if (isFilterCriterion(criteria)) {
-    tuples.push(normalizeCriterion(criteria, filter));
+    tuples.push(normalizeCriterion(criteria, options, filter));
   }
   else if (criteria && typeof criteria === "object" && !filter) {
     if (criteria.include !== undefined) {
-      tuples.push(...normalizeCriteria(criteria.include, "include"));
+      tuples.push(...normalizeCriteria(criteria.include, options, "include"));
     }
     if (criteria.exclude !== undefined) {
-      tuples.push(...normalizeCriteria(criteria.exclude, "exclude"));
+      tuples.push(...normalizeCriteria(criteria.exclude, options, "exclude"));
     }
   }
   else {
@@ -63,12 +77,14 @@ function normalizeCriteria(criteria: AnyFilter, filter?: Filter): Array<[Filter,
 }
 
 /**
- * Creates a `FilterFunction` for each given criterion.
+ * Creates a `FilterFunction` for the given criterion.
  *
  * @param criteria - One or more filter critiera
+ * @param options - Options for how the `FilterFunction` should behave
  * @param filter - The type of filter. Defaults to `include`, except for glob patterns that start with "!"
  */
-function normalizeCriterion(criterion: FilterCriterion, filter?: Filter): [Filter, FilterFunction] {
+function normalizeCriterion(
+criterion: FilterCriterion, options: NormalizedOptions, filter?: Filter): [Filter, FilterFunction] {
   const globOptions = { extended: true, globstar: true };
   let type = typeof criterion;
   let filterFunction: FilterFunction;
@@ -93,11 +109,14 @@ function normalizeCriterion(criterion: FilterCriterion, filter?: Filter): [Filte
     }
 
     let pattern = GlobToRegExp(glob, globOptions);
-    filterFunction = createGlobFilter(pattern, invert);
+    filterFunction = createGlobFilter(pattern, options, invert);
   }
   else if (criterion instanceof RegExp) {
     let pattern = criterion;
-    filterFunction = function regExpFilter(filePath: string) {
+    let { getPath } = options;
+
+    filterFunction = function regExpFilter(...args: unknown[]) {
+      let filePath = getPath(...args);
       return pattern.test(filePath);
     };
   }
@@ -111,8 +130,12 @@ function normalizeCriterion(criterion: FilterCriterion, filter?: Filter): [Filte
 /**
  * Creates a `FilterFunction` for filtering based on glob patterns
  */
-function createGlobFilter(pattern: RegExp, invert: boolean): FilterFunction {
-  return function globFilter(filePath: string) {
+function createGlobFilter(pattern: RegExp, options: NormalizedOptions, invert: boolean): FilterFunction {
+  let { getPath } = options;
+
+  return function globFilter(...args: unknown[]) {
+    let filePath = getPath(...args);
+
     if (isWindows) {
       // Glob patterns only use forward slashes, even on Windows
       filePath = filePath.replace(/\\/g, "/");

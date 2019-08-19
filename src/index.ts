@@ -1,6 +1,7 @@
 import { filePathFilter } from "./file-path-filter";
 
 export * from "./types";
+export { createFilter } from "./create-filter";
 export { filePathFilter };
 
 // Export `filePathFilter` as a named export and the default export
