@@ -4,7 +4,7 @@ const { createFilter } = require("../../lib");
 const paths = require("../fixtures/paths");
 const { expect } = require("chai");
 
-describe("createFilter()", () => {
+describe("options.getPath", () => {
 
   it("should filter custom file objects by a single glob pattern", () => {
     let files = paths.map((path) => ({ path }));
