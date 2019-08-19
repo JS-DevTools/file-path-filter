@@ -1,5 +1,6 @@
 import * as GlobToRegExp from "glob-to-regexp";
-import { _filters, AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, isFilterCriterion, isPathFilter } from "./types";
+import { AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, Options } from "./types";
+import { _filters, isFilterCriterion, isPathFilter } from "./util";
 
 const isWindows = process.platform === "win32";
 

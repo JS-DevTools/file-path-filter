@@ -1,5 +1,5 @@
-import { normalize } from "./normalize";
-import { _filters, AnyFilter, FilterCriterion, FilterFunction, Filters, PathFilter } from "./types";
+import { createFilter } from "./create-filter";
+import { AnyFilter, FilterCriterion, FilterFunction, Filters } from "./types";
 
 /**
  * Creates a `FilterFunction` that matches file paths based on the specified criteria.
