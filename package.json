@@ -24,7 +24,7 @@
     "url": "https://github.com/JS-DevTools/file-path-filter.git"
   },
   "main": "lib/index.js",
-  "types": "lib/index.d.js",
+  "types": "lib/index.d.ts",
   "files": [
     "lib"
   ],
