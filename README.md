@@ -1,8 +1,8 @@
 # File Path Filter
 Filters file paths using globs, regular expressions, or custom criteria
 
-[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/file-path-filter)
-[![Build Status](https://api.travis-ci.com/JS-DevTools/file-path-filter.svg?branch=master)](https://travis-ci.com/JS-DevTools/file-path-filter)
+[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/file-path-filter/blob/master/.github/workflows/CI-CD.yaml)
+[![Build Status](https://github.com/JS-DevTools/file-path-filter/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/file-path-filter/blob/master/.github/workflows/CI-CD.yaml)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/file-path-filter/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/file-path-filter)
 [![Dependencies](https://david-dm.org/JS-DevTools/file-path-filter.svg)](https://david-dm.org/JS-DevTools/file-path-filter)
