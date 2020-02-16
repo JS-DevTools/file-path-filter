@@ -1,7 +1,7 @@
 import * as GlobToRegExp from "glob-to-regexp";
 import * as path from "path";
 import { AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, Options } from "./types";
-import { _filters, isFilterCriterion, isPathFilter } from "./util";
+import { isFilterCriterion, isPathFilter, _filters } from "./util";
 
 /**
  * Normalizes the user-provided filter criteria. The normalized form is a `Filters` object
