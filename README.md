@@ -7,8 +7,8 @@ Filters file paths using globs, regular expressions, or custom criteria
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/file-path-filter/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/file-path-filter)
 [![Dependencies](https://david-dm.org/JS-DevTools/file-path-filter.svg)](https://david-dm.org/JS-DevTools/file-path-filter)
 
-[![npm](https://img.shields.io/npm/v/file-path-filter.svg)](https://www.npmjs.com/package/file-path-filter)
-[![License](https://img.shields.io/npm/l/file-path-filter.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@jsdevtools/file-path-filter.svg)](https://www.npmjs.com/package/@jsdevtools/file-path-filter)
+[![License](https://img.shields.io/npm/l/@jsdevtools/file-path-filter.svg)](LICENSE)
 
 
 
@@ -16,7 +16,7 @@ Example
 --------------------------
 
 ```javascript
-const filePathFilter = require("file-path-filter");
+const filePathFilter = require("@jsdevtools/file-path-filter");
 
 const paths = [
   "/some/path/index.html",
@@ -62,10 +62,10 @@ paths.filter(filePathFilter({
 
 Installation
 --------------------------
-You can install `file-path-filter` via [npm](https://docs.npmjs.com/about-npm/).
+You can install File Path Filter via [npm](https://docs.npmjs.com/about-npm/).
 
 ```bash
-npm install file-path-filter
+npm install @jsdevtools/file-path-filter
 ```
 
 
@@ -102,7 +102,7 @@ The `createFilter` function is an alternative to the `filePathFilter` function t
 The `filePathFilter` function creates a function that filters arrays of strings, but what if you need to filter an array of objects instead?  That's where the `map` option comes in handy. You can use it to map objects (or any other value) to file paths.  Here's an example:
 
 ```javascript
-const { createFilter } = require("file-path-filter");
+const { createFilter } = require("@jsdevtools/file-path-filter");
 const path = require("path");
 
 const files = [
