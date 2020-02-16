@@ -3,6 +3,16 @@ Change Log
 All notable changes will be documented in this file. `file-path-filter` adheres to [Semantic Versioning](http://semver.org/).
 
 
+[v3.0.0](https://github.com/JS-DevTools/file-path-filter/tree/v3.0.0) (2020-02-16)
+----------------------------------------------------------------------------------------------
+
+- Moved File Path Filter to the [@JSDevTools scope](https://www.npmjs.com/org/jsdevtools) on NPM
+
+- The "file-path-filter" NPM package is now just a wrapper around the scoped "@jsdevtools/file-path-filter" package
+
+[Full Changelog](https://github.com/JS-DevTools/file-path-filter/compare/v2.2.2...v3.0.0)
+
+
 [v2.2.0](https://github.com/JS-DevTools/file-path-filter/tree/v2.2.0) (2019-08-19)
 ----------------------------------------------------------------------------------------------
 
