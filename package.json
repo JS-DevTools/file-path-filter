@@ -30,9 +30,7 @@
   ],
   "scripts": {
     "clean": "shx rm -rf .nyc_output coverage lib",
-    "lint": "npm run lint:typescript && npm run lint:javascript",
-    "lint:typescript": "tslint -p tsconfig.json",
-    "lint:javascript": "eslint test",
+    "lint": "eslint src test",
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "mocha && npm run lint",
@@ -45,22 +43,19 @@
     "node": ">=10"
   },
   "devDependencies": {
-    "@jsdevtools/eslint-config-modular": "^8.0.0",
-    "@jsdevtools/tslint-modular": "^2.0.1",
-    "@jsdevtools/version-bump-prompt": "^6.0.0",
-    "@types/chai": "^4.2.9",
+    "@jsdevtools/eslint-config": "^1.0.3",
+    "@jsdevtools/version-bump-prompt": "^6.0.5",
+    "@types/chai": "^4.2.11",
     "@types/glob-to-regexp": "^0.4.0",
-    "@types/mocha": "^7.0.1",
-    "@types/node": "^13.7.1",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^14.0.23",
     "chai": "^4.2.0",
-    "eslint": "^6.8.0",
-    "mocha": "^7.0.1",
-    "npm-check": "^5.9.0",
-    "nyc": "^15.0.0",
+    "eslint": "^7.4.0",
+    "mocha": "^8.0.1",
+    "npm-check": "^5.9.2",
+    "nyc": "^15.1.0",
     "shx": "^0.3.2",
-    "tslint": "^6.0.0",
-    "typescript": "^3.7.5",
-    "typescript-tslint-plugin": "^0.5.5"
+    "typescript": "^3.9.6"
   },
   "dependencies": {
     "glob-to-regexp": "^0.4.1"
