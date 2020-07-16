@@ -115,6 +115,7 @@ describe("Globs", () => {
     ]);
   });
 
+  /* eslint-env node */
   if (process.platform === "win32") {
     it("should filter Windows file paths", () => {
       const windowsPaths = Object.freeze(paths.map((path) =>

@@ -1,4 +1,4 @@
-import * as GlobToRegExp from "glob-to-regexp";
+import * as globToRegExp from "glob-to-regexp";
 import * as path from "path";
 import { AnyFilter, Filter, FilterCriterion, FilterFunction, Filters, Options } from "./types";
 import { isFilterCriterion, isPathFilter, _filters } from "./util";
@@ -34,7 +34,6 @@ type NormalizedOptions = Required<Options>;
 function normalizeOptions(options: Options): NormalizedOptions {
   return {
     // TODO: Remove the "getPath" fallback in the next minor release
-    // tslint:disable-next-line: no-unsafe-any no-any
     map: options.map || (options as any).getPath || String,
     sep: options.sep || path.sep,
   };
@@ -44,7 +43,7 @@ function normalizeOptions(options: Options): NormalizedOptions {
  * Creates a `FilterFunction` for each given criterion.
  */
 function normalizeCriteria(
-criteria: AnyFilter, options: NormalizedOptions, filter?: Filter): Array<[Filter, FilterFunction]> {
+  criteria: AnyFilter, options: NormalizedOptions, filter?: Filter): Array<[Filter, FilterFunction]> {
   let tuples: Array<[Filter, FilterFunction]> = [];
 
   if (Array.isArray(criteria)) {
@@ -86,7 +85,7 @@ criteria: AnyFilter, options: NormalizedOptions, filter?: Filter): Array<[Filter
  * @param filter - The type of filter. Defaults to `include`, except for glob patterns that start with "!"
  */
 function normalizeCriterion(
-criterion: FilterCriterion, options: NormalizedOptions, filter?: Filter): [Filter, FilterFunction] {
+  criterion: FilterCriterion, options: NormalizedOptions, filter?: Filter): [Filter, FilterFunction] {
   const globOptions = { extended: true, globstar: true };
   let type = typeof criterion;
   let filterFunction: FilterFunction;
@@ -110,7 +109,7 @@ criterion: FilterCriterion, options: NormalizedOptions, filter?: Filter): [Filte
       filter = filter || "exclude";
     }
 
-    let pattern = GlobToRegExp(glob, globOptions);
+    let pattern = globToRegExp(glob, globOptions);
     filterFunction = createGlobFilter(pattern, options, invert);
   }
   else if (criterion instanceof RegExp) {

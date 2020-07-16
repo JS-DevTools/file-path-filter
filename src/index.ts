@@ -5,10 +5,10 @@ export { createFilter } from "./create-filter";
 export { filePathFilter };
 
 // Export `filePathFilter` as a named export and the default export
-// tslint:disable: no-default-export
 export default filePathFilter;
 
 // CommonJS default export hack
+/* eslint-env commonjs */
 if (typeof module === "object" && typeof module.exports === "object") {
-  module.exports = Object.assign(module.exports.default, module.exports);  // tslint:disable-line: no-unsafe-any
+  module.exports = Object.assign(module.exports.default, module.exports);
 }

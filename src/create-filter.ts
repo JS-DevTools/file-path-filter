@@ -33,7 +33,6 @@ export function createFilter(options: Options, ...args: unknown[]): FilterFuncti
   (pathFilter as PathFilter)[_filters] = filters;
   return pathFilter;
 
-  // tslint:disable-next-line: no-shadowed-variable
   function pathFilter(...args: unknown[]): boolean {
     // Does the file path match any of the exclude filters?
     let exclude = filters.exclude.some((filter) => filter(...args));

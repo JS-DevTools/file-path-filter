@@ -4,6 +4,3 @@
 
 root: true
 extends: "@jsdevtools"
-
-env:
-  node: true
