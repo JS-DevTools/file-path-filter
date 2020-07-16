@@ -1,6 +1,6 @@
 {
   "name": "@jsdevtools/file-path-filter",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Filters file paths using globs, regular expressions, or custom criteria",
   "keywords": [
     "filter",
